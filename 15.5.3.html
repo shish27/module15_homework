@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="btn">Определить размер экрана и местоположение</button>
+  <div class="screenWindow"></div>
+  <div class="showCoords"></div>
+  <script>
+    const btnNode = document.querySelector(".btn");
+    const screenWindowNode=document.querySelector(".screenWindow");
+    const showCoords=document.querySelector(".showCoords");
+
+    btnNode.addEventListener('click', useRequest);
+
+    function useRequest () {
+      screenWindowNode.innerHTML=`1.Размер экрана: ширина - ${window.screen.width} px, высота -   ${window.screen.height} px`;
+      if ("geolocation" in navigator){
+        navigator.geolocation.getCurrentPosition(position,error)
+      }else{
+         showCoords.innerHTML="2.Браузер не поддерживает геолокацию"
+      };
+  function position (position){
+    showCoords.innerHTML=`2.Ваше местоположение: широта - ${position.coords.latitude}°, долгота - ${position.coords.longitude}°`
+  };
+
+  function error (){
+    showCoords.innerHTML=`2.Информация о местоположении недоступна`
+  };
+};
+  </script>
+</body>
+</html>
